@@ -19,7 +19,7 @@ silex-Installer styles
 .silex-installer .kdlistview-silex-blog .kdlistitemview.kdlistitemview-silex-blog div.instance-block{color:#aaa;float:left}
 .silex-installer .kdlistview-silex-blog .kdlistitemview.kdlistitemview-silex-blog time{position:absolute;right:20px;top:11px;font-size:11px;color:rgba(0,0,0,0.3);display:block;float:right}
 .silex-installer .kdlistview-silex-blog .kdlistitemview.kdlistitemview-silex-blog a.name-link{min-width:220px}
-.silex-installer .kdlistview-silex-blog .kdlistitemview.kdlistitemview-silex-blog a.delete-link{width:20px;height:20px;position:absolute;left:0;top:11px;opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);filter:alpha(opacity=0);background-position:-80px -520px;background-image:url("https://api.koding.com/images/_kd.sprites.png");background-color:transparent;background-repeat:no-repeat}
+.silex-installer .kdlistview-silex-blog .kdlistitemview.kdlistitemview-silex-blog a.delete-link{width:20px;height:20px;position:absolute;left:0;top:11px;opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);filter:alpha(opacity=0);background-position:-80px -520px;background-image:url("https://koding.com/images/_kd.sprites.png");background-color:transparent;background-repeat:no-repeat}
 .silex-installer .kdformview .kdview.formline label,.wordpressinstaller .kdformview .kdview.formline .kdinput{height:28px;line-height:28px}
 .silex-installer .kdformview .kdview.formline label{min-width:230px;color:#444;margin:0;text-shadow:0 1px 0 #fff;}
 .silex-installer .kdformview .kdview.formline label.my-silex-instance{font-size:12px;font-weight:400;margin-left:3px;display:inline-block;position:absolute;}
