@@ -1,0 +1,49 @@
+{
+  "devMode": false,
+  "experimental": false,
+  "authorNick": "jchine",
+  "multiple": false,
+  "background": false,
+  "hiddenHandle": false,
+  "forceUpdate": false,
+  "openWith": "lastActive",
+  "behavior": "application",
+  "version": "0.0.1",
+  "repo": "git://github.com/jchine/Silex.kdapp.git",
+  "name": "Silex",
+  "identifier": "com.koding.apps.silex",
+  "path": "~/Applications/Silex.kdapp",
+  "homepage": "jchine.kd.io/silex",
+  "author": "Jonathan Chiné",
+  "repository": "git://github.com/jchine/Silex.kdapp.git",
+  "description": "Silex: the PHP micro-framework based on the Symfony2 Components. Start enjoying development again with Koding...",
+  "category": "web-app",
+  "source": {
+    "blocks": {
+      "app": {
+        "files": [
+          "./common.coffee",
+          "./dashboardpane.coffee",
+          "./installpane.coffee",
+          "./main.coffee"
+        ]
+      }
+    },
+    "stylesheets": [
+      "./resources/style.css"
+    ]
+  },
+  "options": {
+    "type": "tab"
+  },
+  "icns": {
+    "128": "./resources/silex-icon-128.png",
+    "256": "./resources/silex-icon-256.png"
+  },
+    "screenshots": [
+    "./resources/silex_kdapp1.png",
+    "./resources/silex_kdapp2.png"
+  ],
+  "menu": [],
+  "fileTypes": []
+}
