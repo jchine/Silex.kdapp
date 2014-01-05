@@ -40,7 +40,7 @@ class InstallPane extends SilexPane
           name              : "domain"
           itemClass         : KDSelectBox
           defaultValue      : "#{nickname}.kd.io"
-        typeInstall         :
+        typeinstall         :
           label             : "Type of installation :"
           name              : "typeinstall"
           itemClass         : KDSelectBox
@@ -121,7 +121,7 @@ class InstallPane extends SilexPane
     silexversion = @form.inputs.silexversion.getValue()
     timestamp = parseInt @form.inputs.timestamp.getValue(), 10
 
-    console.log "SILEX INSTALL TYPE", typeinstall
+    console.log "SILEX INSTALL ", typeinstall
     console.log "SILEX VERSION", silexversion
     @checkPath name, (err, response)=>
       if err # means there is no such folder
@@ -138,12 +138,12 @@ class InstallPane extends SilexPane
                           sudo apt-get install php5-mcrypt
                           curl -sS https://getcomposer.org/installer | php
                           """ 
-            if typeinstall = "classic" then
-              silexScript = """
+            if typeinstall == "classic" 
+              silexScript = silexScript + """
                           php composer.phar create-project silex/silex #{name} --stability=dev
                           """ 
             else
-              silexScript = """
+              silexScript = silexScript + """
                           php composer.phar create-project silexphp/silex-skeleton #{name} --stability=dev
                           """
 
@@ -196,4 +196,3 @@ class InstallPane extends SilexPane
         @showInstallFail()
 
   pistachio:-> "{{> this.form}}"
-

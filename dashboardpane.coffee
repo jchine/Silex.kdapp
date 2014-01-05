@@ -31,7 +31,7 @@ class DashboardPane extends SilexPane
         speed       : 1
         FPS         : 24
 
-    @listController.getListView().on "StartArtisan", (listItemView)=>
+    @listController.getListView().on "StartWebapp", (listItemView)=>
       {timestamp, domain, name, typeinstall, silexversion} = listItemView.getData()
 
       instancesDir = "Web"
@@ -41,7 +41,7 @@ class DashboardPane extends SilexPane
       silexCmd = "cd #{silexDir} && php artisan list"
 
       modal = new ModalViewWithTerminal
-        title   : "Silex Artisan"
+        title   : "Silex web-app"
         width   : 700
         overlay : no
         terminal:
@@ -162,7 +162,7 @@ class SilexInstalledAppListItem extends KDListItemView
     @ArtisanButton = new KDButtonView
       cssClass   : "clean-gray test-input"
       title      : "Open Silex"
-      callback   : => @getDelegate().emit "StartArtisan", @
+      callback   : => @getDelegate().emit "StartWebapp", @
 
     @delete = new KDCustomHTMLView
       tagName   : "a"
