@@ -32,7 +32,7 @@ class DashboardPane extends SilexPane
         FPS         : 24
 
     @listController.getListView().on "StartArtisan", (listItemView)=>
-      {timestamp, domain, name, silexversion} = listItemView.getData()
+      {timestamp, domain, name, typeinstall, silexversion} = listItemView.getData()
 
       instancesDir = "Web"
       silexDir = "/home/#{nickname}/#{instancesDir}/#{name}/"
@@ -51,7 +51,7 @@ class DashboardPane extends SilexPane
         content : """
                   <div class='modalformline'>
                     <p>Running from <strong>#{silexDir}</strong>.</p>
-                    <p>Using Silex <strong>#{silexversion}</strong></p>
+                    <p>Using Silex <strong>#{silexversion}</strong> in <strong>#{typeinstall}</strong> instalation</p>
                   </div>
                   """
       modal.on "terminal.event", (data)->
@@ -176,7 +176,7 @@ class SilexInstalledAppListItem extends KDListItemView
     @utils.wait => @setClass "in"
 
   pistachio:->
-    {path, timestamp, domain, name, silexversion} = @getData()
+    {path, timestamp, domain, name, typeinstall, silexversion} = @getData()
     url = "https://#{domain}/#{name}/public"
     instancesDir = "silexapp"
     {nickname} = KD.whoami().profile
@@ -187,6 +187,8 @@ class SilexInstalledAppListItem extends KDListItemView
         Silex Path: /Users/#{nickname}/Web/{{#(name)}}
         <br>
         Silex Version: {{#(silexversion)}}
+        <br>
+        Type instalation: {{#(typeinstall)}}
         <br>
         URL: #{nickname}.kd.io/{{#(name)}}/public/ 
         <br>

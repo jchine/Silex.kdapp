@@ -40,7 +40,12 @@ class InstallPane extends SilexPane
           name              : "domain"
           itemClass         : KDSelectBox
           defaultValue      : "#{nickname}.kd.io"
-        silexversion      :
+        typeInstall         :
+          label             : "Type of installation :"
+          name              : "typeinstall"
+          itemClass         : KDSelectBox
+          defaultValue      : "skeleton"
+        silexversion        :
           label             : "Silex Version :"
           name              : "silexversion"
           itemClass         : KDSelectBox
@@ -63,6 +68,14 @@ class InstallPane extends SilexPane
             {domain} = @form.inputs
             domain.setSelectOptions newSelectOptions
         
+    newTypeOptions = []
+    # Implement later, pip only supports stable version
+    #newVersionOptions.push {title : "Latest (git)", value : "git"}
+    newTypeOptions.push {title : "Skeleton of Fabien Potencier", value : "skeleton"}
+    newTypeOptions.push {title : "Classic", value : "classic"}
+
+    {typeinstall} = @form.inputs
+    typeinstall.setSelectOptions newTypeOptions
 
     newVersionOptions = []
     # Implement later, pip only supports stable version
@@ -104,10 +117,11 @@ class InstallPane extends SilexPane
   installSilex: =>
     domain = @form.inputs.domain.getValue()
     name = @form.inputs.name.getValue()
+    typeinstall = @form.inputs.typeinstall.getValue()
     silexversion = @form.inputs.silexversion.getValue()
     timestamp = parseInt @form.inputs.timestamp.getValue(), 10
 
-
+    console.log "SILEX INSTALL TYPE", typeinstall
     console.log "SILEX VERSION", silexversion
     @checkPath name, (err, response)=>
       if err # means there is no such folder
@@ -123,12 +137,22 @@ class InstallPane extends SilexPane
             silexScript = """
                           sudo apt-get install php5-mcrypt
                           curl -sS https://getcomposer.org/installer | php
-                          php composer.phar create-project silex/silex #{name} --prefer-dist
+                          """ 
+            if typeinstall = "classic" then
+              silexScript = """
+                          php composer.phar create-project silex/silex #{name} --stability=dev
+                          """ 
+            else
+              silexScript = """
+                          php composer.phar create-project silexphp/silex-skeleton #{name} --stability=dev
+                          """
+
+            silexScript = silexScript + """
                           mv .composer #{name} vendor/ composer.phar Web/
                           sudo chmod -R 777 Web/#{name}/app/storage
                           rm -rf silexapp
                           echo '*** -> Installation successfull, Silex is ready!!!.'
-                          """
+                          """ 
 
             newFile = FSHelper.createFile
               type   : 'file'
@@ -141,7 +165,7 @@ class InstallPane extends SilexPane
                 @emit "fs.saveAs.finished", newFile, @
 
             installCmd = "bash #{tmpAppDir}/silexScript.sh\n"
-            formData = {timestamp: timestamp, domain: domain, name: name, silexversion: silexversion}
+            formData = {timestamp: timestamp, domain: domain, name: name, typeinstall: typeinstall, silexversion: silexversion}
 
             modal = new ModalViewWithTerminal
               title   : "Creating Silex Instance: '#{name}'"
@@ -153,7 +177,7 @@ class InstallPane extends SilexPane
                 hidden: no
               content : """
                         <div class='modalformline'>
-                          <p>Using Silex <strong>#{silexversion}</strong></p>
+                          <p>Using Silex <strong>#{silexversion}</strong> in install type <strong>#{typeinstall}</strong></p>
                           <br>
                           <i>note: your sudo password is your koding password. </i>
                         </div>
