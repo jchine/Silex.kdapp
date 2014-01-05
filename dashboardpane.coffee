@@ -161,7 +161,7 @@ class SilexInstalledAppListItem extends KDListItemView
 
     @ArtisanButton = new KDButtonView
       cssClass   : "clean-gray test-input"
-      title      : "Open Artisan"
+      title      : "Open Silex"
       callback   : => @getDelegate().emit "StartArtisan", @
 
     @delete = new KDCustomHTMLView
