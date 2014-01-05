@@ -67,7 +67,7 @@ class InstallPane extends SilexPane
     newVersionOptions = []
     # Implement later, pip only supports stable version
     #newVersionOptions.push {title : "Latest (git)", value : "git"}
-    newVersionOptions.push {title : "4", value : "4"}
+    newVersionOptions.push {title : "1.1", value : "1.1"}
 
     {silexversion} = @form.inputs
     silexversion.setSelectOptions newVersionOptions
