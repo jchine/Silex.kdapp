@@ -159,7 +159,7 @@ class SilexInstalledAppListItem extends KDListItemView
 
     super options, data
 
-    @ArtisanButton = new KDButtonView
+    @WebappButton = new KDButtonView
       cssClass   : "clean-gray test-input"
       title      : "Open Silex"
       callback   : => @getDelegate().emit "StartWebapp", @
@@ -192,7 +192,7 @@ class SilexInstalledAppListItem extends KDListItemView
         <br>
         URL: #{nickname}.kd.io/{{#(name)}}/public/ 
         <br>
-        {{> @ArtisanButton}}
+        {{> @WebappButton}}
     </div>
     <time datetime='#{new Date(timestamp)}'>#{$.timeago new Date(timestamp)}</time>
     """
