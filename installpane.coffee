@@ -141,23 +141,25 @@ class InstallPane extends SilexPane
                           php composer.phar create-project 
                           """ 
             if typeinstall == "classic" 
-              silexScript = silexScript + """ silex/silex #{name} --stability=dev """ 
+              silexScript = silexScript + """ silex/silex #{name} --stability=dev --no-interaction """ 
             else
-              silexScript = silexScript + """ silexphp/silex-skeleton #{name} --stability=dev """
+              silexScript = silexScript + """ silexphp/silex-skeleton #{name} --stability=dev --no-interaction """
 
-            silexScript = silexScript + "\n" + "mv -f .composer #{name} vendor/ composer.phar Web/ "
+            silexScript = silexScript + "\n" + "mv -vf .composer #{name} composer.phar Web/ "
             
             # include sample file for classic installation
             if typeinstall == "classic" then silexScript = silexScript + "\n" + """
                           mkdir -p #{tmpSampleDir}
                           cp #{silexResourceDir}sample.php #{tmpSampleDir}/index.php
-                          cp #{silexResourceDir}samplehtaccess.php #{tmpSampleDir}/.htaccess
-                          sed -i 's|SILEX_WEB_FOLDER|Web/#{name}/#{tmpSampleDir}|g' #{tmpSampleDir}/.htaccess
+                          cp #{silexResourceDir}samplehtaccess #{tmpSampleDir}/.htaccess
+                          sed -i 's|SILEX_WEB_FOLDER|#{tmpSampleDir}|g' #{tmpSampleDir}/.htaccess
                           """ 
 
             silexScript = silexScript + "\n" + """
                           sudo chmod -R 777 Web/#{name}
                           rm -rf silexapp
+                          rm -rf .composer
+                          rm -rf composer.phar
                           echo '*** -> Installation successfull, Silex is ready!!!.'
                           """ 
 
