@@ -58,6 +58,33 @@ class DashboardPane extends SilexPane
         new KDNotificationView
           title: "Opened successfuly"
 
+    @listController.getListView().on "UpdateSilex", (listItemView)=>
+      {timestamp, domain, name, typeinstall, silexversion} = listItemView.getData()
+
+      instancesDir = "Web"
+      silexDir = "/home/#{nickname}/#{instancesDir}/#{name}/"
+
+      instanceDir = "/home/#{nickname}/#{instancesDir}/#{name}"
+      silexCmd = "cd #{silexDir} && php composer.phar update"
+
+      modal = new ModalViewWithTerminal
+        title   : "Update Silex"
+        width   : 700
+        overlay : no
+        terminal:
+          height: 500
+          command: silexCmd
+          hidden: no
+        content : """
+                  <div class='modalformline'>
+                    <p>Running from <strong>#{silexDir}</strong>.</p>
+                    <p>Using Silex <strong>#{silexversion}</strong> in <strong>#{typeinstall}</strong> installation</p>
+                  </div>
+                  """
+      modal.on "terminal.event", (data)->
+        new KDNotificationView
+          title: "Opened successfuly"
+
     @listController.getListView().on "DeleteLinkClicked", (listItemView)=>
       {domain, name} = listItemView.getData()
 
@@ -163,6 +190,11 @@ class SilexInstalledAppListItem extends KDListItemView
       cssClass   : "clean-gray test-input"
       title      : "Open Silex"
       callback   : => @getDelegate().emit "StartWebapp", @
+
+    @UpdateSilexButton = new KDButtonView
+      cssClass   : "clean-gray test-input"
+      title      : "Update Silex"
+      callback   : => @getDelegate().emit "UpdateSilex", @
 
     @delete = new KDCustomHTMLView
       tagName   : "a"
