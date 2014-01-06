@@ -130,6 +130,8 @@ class InstallPane extends SilexPane
         #If you change it, grep the source file because this variable is used
         instancesDir = "silexapp"
         tmpAppDir = "#{instancesDir}/tmp"
+        tmpSampleDir = "Web/#{instancesDir}/#{name}/web"
+        silexResourceDir = "/home/#{@nickname}/Applications/Silex.kdapp/resources/"
 
         kite.run "mkdir -p '#{tmpAppDir}'", (err, res)=>
           if err then console.log err
@@ -151,6 +153,16 @@ class InstallPane extends SilexPane
                           mv .composer #{name} vendor/ composer.phar Web/
                           sudo chmod -R 777 Web/#{name}/app/storage
                           rm -rf silexapp
+                          """
+            
+            # include sample file for classic installation
+            if typeinstall == "classic" 
+              silexScript = silexScript + """
+                          mkdir -p #{tmpSampleDir}
+                          cp #{silexResourceDir}sample.php #{webDir}index.php"
+                          """ 
+            
+            silexScript = silexScript + """
                           echo '*** -> Installation successfull, Silex is ready!!!.'
                           """ 
 

@@ -51,7 +51,7 @@ class DashboardPane extends SilexPane
         content : """
                   <div class='modalformline'>
                     <p>Running from <strong>#{silexDir}</strong>.</p>
-                    <p>Using Silex <strong>#{silexversion}</strong> in <strong>#{typeinstall}</strong> instalation</p>
+                    <p>Using Silex <strong>#{silexversion}</strong> in <strong>#{typeinstall}</strong> installation</p>
                   </div>
                   """
       modal.on "terminal.event", (data)->
@@ -177,7 +177,7 @@ class SilexInstalledAppListItem extends KDListItemView
 
   pistachio:->
     {path, timestamp, domain, name, typeinstall, silexversion} = @getData()
-    url = "https://#{domain}/#{name}/public"
+    url = "https://#{domain}/#{name}/web"
     instancesDir = "silexapp"
     {nickname} = KD.whoami().profile
     """
@@ -188,9 +188,9 @@ class SilexInstalledAppListItem extends KDListItemView
         <br>
         Silex Version: {{#(silexversion)}}
         <br>
-        Type instalation: {{#(typeinstall)}}
+        Type installation: {{#(typeinstall)}}
         <br>
-        URL: #{nickname}.kd.io/{{#(name)}}/public/ 
+        URL: #{nickname}.kd.io/{{#(name)}}/web/ 
         <br>
         {{> @WebappButton}}
     </div>
