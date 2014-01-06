@@ -145,7 +145,7 @@ class InstallPane extends SilexPane
             else
               silexScript = silexScript + """ silexphp/silex-skeleton #{name} --stability=dev """
 
-            silexScript = silexScript + "\n" + "mv .composer #{name} vendor/ composer.phar Web/ "
+            silexScript = silexScript + "\n" + "mv -f .composer #{name} vendor/ composer.phar Web/ "
             
             # include sample file for classic installation
             if typeinstall == "classic" then silexScript = silexScript + "\n" + """
