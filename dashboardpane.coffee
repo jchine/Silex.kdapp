@@ -225,7 +225,7 @@ class SilexInstalledAppListItem extends KDListItemView
         URL: #{nickname}.kd.io/{{#(name)}}/web/ 
         <br>
         {{> @WebappButton}}
+        {{> @UpdateSilexButton}}
     </div>
     <time datetime='#{new Date(timestamp)}'>#{$.timeago new Date(timestamp)}</time>
     """
-
