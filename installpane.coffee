@@ -69,8 +69,6 @@ class InstallPane extends SilexPane
             domain.setSelectOptions newSelectOptions
         
     newTypeOptions = []
-    # Implement later, pip only supports stable version
-    #newVersionOptions.push {title : "Latest (git)", value : "git"}
     newTypeOptions.push {title : "Skeleton of Fabien Potencier", value : "skeleton"}
     newTypeOptions.push {title : "Classic", value : "classic"}
 
@@ -121,8 +119,9 @@ class InstallPane extends SilexPane
     silexversion = @form.inputs.silexversion.getValue()
     timestamp = parseInt @form.inputs.timestamp.getValue(), 10
 
+
     console.log "SILEX INSTALL ", typeinstall
-    console.log "SILEX VERSION", silexversion
+    console.log "VERSION", silexversion
     @checkPath name, (err, response)=>
       if err # means there is no such folder
         console.log "Starting install with formData", @form
@@ -130,8 +129,8 @@ class InstallPane extends SilexPane
         #If you change it, grep the source file because this variable is used
         instancesDir = "silexapp"
         tmpAppDir = "#{instancesDir}/tmp"
-        tmpSampleDir = "Web/#{instancesDir}/#{name}/web"
-        silexResourceDir = "/home/#{@nickname}/Applications/Silex.kdapp/resources/"
+        tmpSampleDir = "Web/#{name}/web"
+        silexResourceDir = "Applications/Silex.kdapp/resources/"
 
         kite.run "mkdir -p '#{tmpAppDir}'", (err, res)=>
           if err then console.log err
@@ -139,30 +138,26 @@ class InstallPane extends SilexPane
             silexScript = """
                           sudo apt-get install php5-mcrypt
                           curl -sS https://getcomposer.org/installer | php
+                          php composer.phar create-project 
                           """ 
             if typeinstall == "classic" 
-              silexScript = silexScript + """
-                          php composer.phar create-project silex/silex #{name} --stability=dev
-                          """ 
+              silexScript = silexScript + """ silex/silex #{name} --stability=dev """ 
             else
-              silexScript = silexScript + """
-                          php composer.phar create-project silexphp/silex-skeleton #{name} --stability=dev
-                          """
+              silexScript = silexScript + """ silexphp/silex-skeleton #{name} --stability=dev """
 
-            silexScript = silexScript + """
-                          mv .composer #{name} vendor/ composer.phar Web/
-                          sudo chmod -R 777 Web/#{name}/app/storage
-                          rm -rf silexapp
-                          """
+            silexScript = silexScript + "\n" + "mv .composer #{name} vendor/ composer.phar Web/ "
             
             # include sample file for classic installation
-            if typeinstall == "classic" 
-              silexScript = silexScript + """
+            if typeinstall == "classic" then silexScript = silexScript + "\n" + """
                           mkdir -p #{tmpSampleDir}
-                          cp #{silexResourceDir}sample.php #{webDir}index.php"
+                          cp #{silexResourceDir}sample.php #{tmpSampleDir}/index.php
+                          cp #{silexResourceDir}samplehtaccess.php #{tmpSampleDir}/.htaccess
+                          sed -i 's|SILEX_WEB_FOLDER|Web/#{name}/#{tmpSampleDir}|g' #{tmpSampleDir}/.htaccess"
                           """ 
-            
-            silexScript = silexScript + """
+
+            silexScript = silexScript + "\n" + """
+                          sudo chmod -R 777 Web/#{name}
+                          rm -rf silexapp
                           echo '*** -> Installation successfull, Silex is ready!!!.'
                           """ 
 
