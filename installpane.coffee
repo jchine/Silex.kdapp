@@ -152,7 +152,7 @@ class InstallPane extends SilexPane
                           mkdir -p #{tmpSampleDir}
                           cp #{silexResourceDir}sample.php #{tmpSampleDir}/index.php
                           cp #{silexResourceDir}samplehtaccess #{tmpSampleDir}/.htaccess
-                          sed -i 's|SILEX_WEB_FOLDER|#{tmpSampleDir}|g' #{tmpSampleDir}/.htaccess
+                          sed -i 's|SILEX_WEB_FOLDER|#{name}/web|g' #{tmpSampleDir}/.htaccess
                           """ 
 
             silexScript = silexScript + "\n" + """

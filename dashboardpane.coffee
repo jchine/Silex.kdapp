@@ -39,7 +39,7 @@ class DashboardPane extends SilexPane
 
       instanceDir = "/home/#{nickname}/#{instancesDir}/#{name}"
       silexCmd = "cd #{silexDir} && php artisan list"
-
+    
       modal = new ModalViewWithTerminal
         title   : "Silex web-app"
         width   : 700
@@ -52,6 +52,7 @@ class DashboardPane extends SilexPane
                   <div class='modalformline'>
                     <p>Running from <strong>#{silexDir}</strong>.</p>
                     <p>Using Silex <strong>#{silexversion}</strong> in <strong>#{typeinstall}</strong> installation</p>
+                    <p>Remember activate use htaccess: <a href="http://learn.koding.com/general-htaccess/">http://learn.koding.com/general-htaccess/</a></p>
                   </div>
                   """
       modal.on "terminal.event", (data)->
