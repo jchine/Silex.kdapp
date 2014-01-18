@@ -10,7 +10,7 @@ and learn new programming skills like (like Silex)
 # Features
 
 - Easily create Silex app with one click.
-- Quick links to App and Artisan (with a link to remove it too)
+- Quick links to (App with a link to remove it too)
 - Perfectly for testing and learning Silex
 
 # How to use it?
